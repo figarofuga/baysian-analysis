@@ -1,0 +1,75 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ubuntu",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:noble",
+	"features": {
+		"ghcr.io/rocker-org/devcontainer-features/r-apt:0": {
+            // See: https://github.com/rocker-org/devcontainer-features/blob/main/src/r-apt/README.md#options
+            //
+            // Use RSupport (incl languageserver and httpgd) spand bspm
+            "vscodeRSupport": "full",
+            "installBspm": true,
+            "installREnv": true,
+            //
+            // But turn off Radian (R console), devtools, extre Markdown support and debugger
+            // You can add each of these individually or jointly. See the table at
+            // https://github.com/rocker-org/devcontainer-features/blob/main/src/r-apt/README.md#options
+            "installRadian": true,
+            "installDevTools": false,
+            "installRMarkdown": false,
+            "installVscDebugger": false,
+            "useTesting": false
+        }, 
+        "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+        "packages": "fonts-noto-cjk,r-cran-reticulate,r-cran-tidyverse,r-cran-easystats,r-cran-here,r-cran-rms,r-cran-hmisc,r-cran-rmsb,r-cran-rstan,r-cran-rstanarm,r-cran-brms"
+    },
+
+		"ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {},
+		"ghcr.io/devcontainers-extra/features/uv:1": {}, 
+		"ghcr.io/devcontainers-extra/features/git-lfs:1": {}
+	}, 
+    "overrideFeatureInstallOrder": [
+    "ghcr.io/rocker-org/devcontainer-features/r-apt"
+],
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.vscode-python-envs",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-python.debugpy",
+				"ms-toolsai.jupyter",
+				"quarto.quarto",
+				"REditorSupport.r"
+			], 
+		"settings": {
+			 "r.rterm.linux": "/usr/local/bin/radian",
+   			 "r.bracketedPaste": true,
+    		"[r]": {
+      			"editor.wordSeparators": "`~!@#%$^&*()-=+[{]}\\|;:'\",<>/?"
+    			},
+				"terminal.integrated.profiles.linux": {
+					"radian": {
+						"path": "/usr/local/bin/radian",
+						"overrideName": true
+					}
+				}
+			}
+		}
+	}
+
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
