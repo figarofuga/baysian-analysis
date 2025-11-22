@@ -1,41 +1,18 @@
 {
-  "name": "R(brms) & Py(PyMC) Env",
-  "image": "ghcr.io/rocker-org/devcontainer/r-ver:4",
-  
-  "features": {
-    // R用のシステム依存ライブラリ
-    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
-      "packages": "libglpk-dev,libv8-dev,libcairo2-dev,libxt-dev,curl,git" 
-    },
-    // Pythonの土台 (3.12推奨)
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.12",
-      "installTools": false
-    }
-  },
-
-  // R(renv) と Python(uv) のキャッシュを永続化
-  "mounts": [
-    "source=renv-cache,target=/home/rstudio/.local/share/renv/cache,type=volume",
-    "source=uv-cache,target=/home/rstudio/.cache/uv,type=volume"
-  ],
-
+  "name": "My Workshop Setup",
+  "image": "ghcr.io/mcanouil/quarto-codespaces:latest",
+  "remoteUser": "vscode",
+  "postCreateCommand": "bash ./init-env.sh --what r_py --force",
   "customizations": {
     "vscode": {
       "extensions": [
-        "REditorSupport.r",
-        "quarto.quarto",
+        "ms-toolsai.jupyter",
         "ms-python.python",
-        "charliermarsh.ruff" // PythonのLinter/Formatter (uv開発元と同じ作者)
+        "ms-python.vscode-python-envs",
+        "ms-python.vscode-pylance",
+        "REditorSupport.r",
+        "julialang.language-julia"
       ]
     }
-  },
-
-  "containerEnv": {
-    "RENV_PATHS_CACHE": "/home/rstudio/.local/share/renv/cache",
-    "UV_CACHE_DIR": "/home/rstudio/.cache/uv"
-  },
-
-  // シェルスクリプトで一括セットアップ
-  "postCreateCommand": "bash .devcontainer/setup.sh"
+  }
 }
