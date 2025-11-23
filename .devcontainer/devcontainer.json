@@ -1,18 +1,36 @@
 {
-  "name": "My Workshop Setup",
-  "image": "ghcr.io/mcanouil/quarto-codespaces:latest",
-  "remoteUser": "vscode",
-  "postCreateCommand": "bash ./init-env.sh --what r_py --force",
+  "name": "Bayes All-Star Env (R, Py, Jl)",
+  "image": "ghcr.io/rocker-org/devcontainer/r-ver:4",
+
+  "features": {
+    // 1. システムパッケージ (StanやRのパッケージに必要)
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "libglpk-dev,libv8-dev,libcairo2-dev,libxt-dev,curl,wget,git"
+    },
+    // 2. Python (uvを動かす土台)
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.12",
+      "installTools": false
+    },
+    // 3. Julia
+    "ghcr.io/devcontainers/features/julia:1": {
+      "version": "latest"
+    },
+    // 4. Quarto
+    "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {}
+  },
+
   "customizations": {
     "vscode": {
       "extensions": [
-        "ms-toolsai.jupyter",
-        "ms-python.python",
-        "ms-python.vscode-python-envs",
-        "ms-python.vscode-pylance",
         "REditorSupport.r",
-        "julialang.language-julia"
+        "ms-python.python",
+        "julialang.language-julia",
+        "quarto.quarto"
       ]
     }
-  }
+  },
+
+  // 作成後に実行するコマンド
+  "postCreateCommand": "bash .devcontainer/setup.sh"
 }
