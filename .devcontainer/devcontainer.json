@@ -13,7 +13,7 @@
       "installTools": false
     },
     // 3. Julia
-    "ghcr.io/devcontainers/features/julia:1": {
+    "ghcr.io/julialang/devcontainer-features/julia:1": {
       "version": "latest"
     },
     // 4. Quarto
@@ -32,5 +32,5 @@
   },
 
   // 作成後に実行するコマンド
-  "postCreateCommand": "bash .devcontainer/setup.sh"
+  "postCreateCommand": "bash .devcontainer/init-env.sh"
 }

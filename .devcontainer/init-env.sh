@@ -12,7 +12,7 @@ Rscript -e "install.packages(c('brms', 'tidyverse', 'posterior', 'bayesplot'))"
 echo ">>> 2. Python Setup (uv & PyMC/Bambi) <<<"
 # uvのインストール
 curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.cargo/env
+export PATH="$HOME/.local/bin:$PATH"
 
 # 仮想環境作成とパッケージインストール
 uv init --no-package --vcs none --bare
